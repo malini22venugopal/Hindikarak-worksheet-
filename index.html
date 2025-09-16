@@ -82,27 +82,27 @@
   <!-- Questions -->
   <div id="questions"></div>
 
-  <button id="submitBtn">सबमिट करें</button>
+  <button id="submitBtn">Submit</button>
   <div id="result"></div>
 
   <script>
     // Master options bank
     const optionsBank = ["से", "ने", "में", "के", "अरे", "के लिए", "को"];
 
-    // Questions (with multiple blanks handled using array for answers)
+    // Questions with explanations in English
     const questions = [
-      { text: "कुत्ते ______ भोजन दे दो।", answers: ["को"], explanation: "यहाँ 'को' कारक चिह्न सही है।" },
-      { text: "पेड़ ______ पत्ता गिरा।", answers: ["से"], explanation: "पत्ता 'पेड़ से' गिरा।" },
-      { text: "सूर्य दिन ______ निकलता है।", answers: ["में"], explanation: "सूर्य 'दिन में' निकलता है।" },
-      { text: "बिल ______ साँप है।", answers: ["में"], explanation: "साँप 'बिल में' है।" },
-      { text: "दादाजी आमिर ______ पतंग लाए।", answers: ["के लिए"], explanation: "दादाजी आमिर 'के लिए' पतंग लाए।" },
-      { text: "रानी ______ हाथ ______ टॉर्च गिर गया।", answers: ["के", "से"], explanation: "सही उत्तर है 'रानी के हाथ से टॉर्च गिरा'।" },
-      { text: "पंकज अपने छोटे भाई ______ चॉकलेट लाया।", answers: ["के लिए"], explanation: "पंकज भाई 'के लिए' चॉकलेट लाया।" },
-      { text: "आसमान ______ बूंदें टपकी।", answers: ["से"], explanation: "बूंदें 'आसमान से' टपकी।" },
-      { text: "मनोेज कलम ______ लिखता है।", answers: ["से"], explanation: "मनोेज 'कलम से' लिखता है।" },
-      { text: "______! तुम कब आए।", answers: ["अरे"], explanation: "'अरे!' विस्मयादिबोधक प्रयोग है।" },
-      { text: "रवि ______ क्रिकेट मैच देखा।", answers: ["ने"], explanation: "रवि 'ने' मैच देखा।" },
-      { text: "छत ______ ऊपर बच्चा खड़ा है।", answers: ["के"], explanation: "बच्चा छत 'के ऊपर' खड़ा है।" }
+      { text: "कुत्ते ______ भोजन दे दो।", answers: ["को"], explanation: "The correct marker here is 'को', indicating the direct object of the action." },
+      { text: "पेड़ ______ पत्ता गिरा।", answers: ["से"], explanation: "The leaf fell 'from the tree', so 'से' is the correct marker for origin." },
+      { text: "सूर्य दिन ______ निकलता है।", answers: ["में"], explanation: "'में' is used to indicate time, so 'in the day' is the correct expression." },
+      { text: "बिल ______ साँप है।", answers: ["में"], explanation: "'में' is used to indicate location, so the snake is 'in the hole'." },
+      { text: "दादाजी आमिर ______ पतंग लाए।", answers: ["के लिए"], explanation: "'के लिए' indicates the recipient of the action, here it means 'for Amir'." },
+      { text: "रानी ______ हाथ ______ टॉर्च गिर गया।", answers: ["के", "से"], explanation: "'के हाथ से' means 'from the hand of', indicating the source of the action." },
+      { text: "पंकज अपने छोटे भाई ______ चॉकलेट लाया।", answers: ["के लिए"], explanation: "'के लिए' means 'for', indicating the recipient of the action (Pankaj brought chocolate for his brother)." },
+      { text: "आसमान ______ बूंदें टपकी।", answers: ["से"], explanation: "The correct marker 'से' shows the source of the action, meaning 'from the sky'." },
+      { text: "मनोेज कलम ______ लिखता है।", answers: ["से"], explanation: "'से' indicates the tool or medium, meaning 'with the pen'." },
+      { text: "______! तुम कब आए।", answers: ["अरे"], explanation: "'अरे' is an interjection, used for expressing surprise or emphasis in a question." },
+      { text: "रवि ______ क्रिकेट मैच देखा।", answers: ["ने"], explanation: "'ने' is used for the subject performing the action, as Ravi watched the match." },
+      { text: "छत ______ ऊपर बच्चा खड़ा है।", answers: ["के"], explanation: "'के ऊपर' indicates the location, meaning 'on top of the roof'." }
     ];
 
     // Render options bank
@@ -121,12 +121,12 @@
 
       // Build question text + dropdowns for blanks
       let parts = q.text.split("______");
-      let html = `<p>प्रश्न ${i+1}: `;
+      let html = `<p>Question ${i + 1}: `;
       parts.forEach((part, idx) => {
         html += part;
         if (idx < q.answers.length) {
           html += `<select id="q${i}_${idx}">
-                     <option value="">-- विकल्प चुनें --</option>
+                     <option value="">-- Select an option --</option>
                      ${optionsBank.map(opt => `<option value="${opt}">${opt}</option>`).join("")}
                    </select>`;
         }
@@ -151,15 +151,15 @@
         expDiv.style.display = "block";
         if (correct) {
           score++;
-          expDiv.innerHTML = `✔️ सही उत्तर: ${q.answers.join(", ")}<br>💡 व्याख्या: ${q.explanation}`;
+          expDiv.innerHTML = `✔️ Correct Answer: ${q.answers.join(", ")}<br>💡 Explanation: ${q.explanation}`;
         } else {
-          let chosen = q.answers.map((_, idx) => document.getElementById(`q${i}_${idx}`).value || "कोई नहीं").join(", ");
-          expDiv.innerHTML = `❌ आपका उत्तर: ${chosen}<br>✔️ सही उत्तर: ${q.answers.join(", ")}<br>💡 व्याख्या: ${q.explanation}`;
+          let chosen = q.answers.map((_, idx) => document.getElementById(`q${i}_${idx}`).value || "None").join(", ");
+          expDiv.innerHTML = `❌ Your Answer: ${chosen}<br>✔️ Correct Answer: ${q.answers.join(", ")}<br>💡 Explanation: ${q.explanation}`;
         }
       });
       const resultDiv = document.getElementById("result");
       resultDiv.style.display = "block";
-      resultDiv.innerHTML = `<h3>आपका स्कोर: ${score}/${questions.length}</h3>`;
+      resultDiv.innerHTML = `<h3>Your Score: ${score}/${questions.length}</h3>`;
     });
   </script>
 </body>
