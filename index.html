@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>कारक प्रश्नावली</title>
+  <title>कारक प्रश्नावली (वर्तमान काल)</title>
   <style>
     body {
       font-family: "Noto Sans Devanagari", sans-serif;
@@ -74,7 +74,7 @@
   </style>
 </head>
 <body>
-  <h1>कारक प्रश्नावली</h1>
+  <h1>कारक प्रश्नावली (वर्तमान काल)</h1>
 
   <!-- Word bank -->
   <div class="options-bank" id="optionsBank"></div>
@@ -87,43 +87,23 @@
 
   <script>
     // Master options bank
-    const optionsBank = ["से", "ने", "में", "के", "अरे", "के लिए", "को", "पर"];
+    const optionsBank = ["से", "ने", "में", "के", "अरे", "के लिए", "को"];
 
-    // All questions (20 total)
+    // Questions with explanations + English meaning inside text
     const questions = [
-      { text: "माँ कुत्ते ______ भोजन देती है। (The mother gives food to the dog.)", answers: ["को"], explanation: "'को' marks the recipient: the mother gives food to the dog." },
-      { text: "पेड़ ______ पत्ता गिरता है। (The leaf falls from the tree.)", answers: ["से"], explanation: "'से' shows origin: the leaf falls from the tree." },
-      { text: "सूर्य दिन ______ निकलता है। (The sun rises in the day.)", answers: ["में"], explanation: "'में' indicates time: in the day." },
-      { text: "बिल ______ साँप रहता है। (A snake lives in the hole.)", answers: ["में"], explanation: "'में' shows location: in the hole." },
-      { text: "दादाजी आमिर ______ पतंग लाते हैं। (Grandfather brings a kite for Amir.)", answers: ["के लिए"], explanation: "'के लिए' shows beneficiary: for Amir." },
-      { text: "रानी ______ हाथ ______ टॉर्च गिरती है। (The torch falls from Rani’s hand.)", answers: ["के", "से"], explanation: "'के हाथ से' = from the hand of Rani, showing source." },
-      { text: "पंकज अपने छोटे भाई ______ चॉकलेट लाता है। (Pankaj brings chocolate for his younger brother.)", answers: ["के लिए"], explanation: "'के लिए' shows beneficiary: for his brother." },
-      { text: "आसमान ______ बूंदें टपकती हैं। (Drops fall from the sky.)", answers: ["से"], explanation: "'से' indicates source: from the sky." },
-      { text: "मनोेज कलम ______ लिखता है। (Manoj writes with a pen.)", answers: ["से"], explanation: "'से' shows instrument: with a pen." },
-      { text: "______! तुम कब आते हो। (Hey! When do you come?)", answers: ["अरे"], explanation: "'अरे' is an interjection showing surprise." },
-      { text: "रवि ______ क्रिकेट मैच देखता है। (Ravi watches the cricket match.)", answers: ["ने"], explanation: "'ने' marks the doer: Ravi watched the match." },
-      { text: "छत ______ ऊपर बच्चा खड़ा है। (A child is standing on top of the roof.)", answers: ["के"], explanation: "'के ऊपर' shows position: on top of." },
-
-      // Extra questions
-      { text: "बच्चा गिलास ______ दूध पीता है। (The child drinks milk with a glass.)", answers: ["से"], explanation: "'से' shows instrument/tool: with a glass." },
-      { text: "लड़का गुरुजी ______ पढ़ता है। (The boy studies from the teacher.)", answers: ["से"], explanation: "'से' shows source: from the teacher." },
-      { text: "रीमा अपनी सहेली ______ पत्र लिखती है। (Reema writes a letter to her friend.)", answers: ["को"], explanation: "'को' marks recipient: to her friend." },
-      { text: "पक्षी पेड़ ______ बैठता है। (The bird sits on the tree.)", answers: ["पर"], explanation: "'पर' indicates position: on the tree." },
-      { text: "लता माँ ______ घर साफ करती है। (Lata cleans the house for her mother.)", answers: ["के लिए"], explanation: "'के लिए' shows beneficiary: for her mother." },
-      { text: "नदी पहाड़ ______ निकलती है। (The river comes out of the mountain.)", answers: ["से"], explanation: "'से' shows origin: from the mountain." },
-      { text: "विद्यार्थी किताब ______ पढ़ता है। (The student reads from the book.)", answers: ["से"], explanation: "'से' shows medium: from the book." },
-      { text: "सीता बाजार ______ सब्ज़ी खरीदती है। (Sita buys vegetables from the market.)", answers: ["से"], explanation: "'से' shows source/place of purchase: from the market." }
+      { text: "माँ कुत्ते ______ भोजन देती है। (Mother gives food to the dog.)", answers: ["को"], explanation: "The marker 'को' marks the recipient/indirect object: the mother gives food to the dog." },
+      { text: "पेड़ ______ पत्ते गिरते हैं। (Leaves fall from the tree.)", answers: ["से"], explanation: "'से' marks the source/origin: leaves fall from the tree." },
+      { text: "सूर्य सुबह ______ निकलता है। (The sun rises in the morning.)", answers: ["में"], explanation: "'में' denotes time context: the sun rises in the morning." },
+      { text: "बिल ______ साँप रहता है। (The snake lives in the hole.)", answers: ["में"], explanation: "'में' marks location: the snake lives in the hole." },
+      { text: "दादाजी आमिर ______ फल लाते हैं। (Grandfather brings fruits for Amir.)", answers: ["के लिए"], explanation: "'के लिए' indicates beneficiary/recipient of the action: 'for Amir'." },
+      { text: "रानी ______ हाथ ______ किताब गिरती है। (The book falls from the queen’s hand.)", answers: ["के", "से"], explanation: "'के हाथ से' means 'from the hand of the queen' — 'के' shows possession and 'से' shows source." },
+      { text: "पंकज अपने भाई ______ मिठाई लाता है। (Pankaj brings sweets for his brother.)", answers: ["के लिए"], explanation: "'के लिए' marks the beneficiary: sweets are brought for his brother." },
+      { text: "आसमान ______ बारिश गिरती है। (Rain falls from the sky.)", answers: ["से"], explanation: "'से' shows the source: rain falls from the sky." },
+      { text: "मनोज कलम ______ लिखता है। (Manoj writes with a pen.)", answers: ["से"], explanation: "'से' indicates instrument/tool: he writes with a pen." },
+      { text: "______! तुम क्या करते हो? (Oh! What do you do?)", answers: ["अरे"], explanation: "'अरे' is an interjection used for calling attention or surprise." },
+      { text: "रवि मैदान ______ खेल खेलता है। (Ravi plays in the field.)", answers: ["में"], explanation: "'में' indicates the location where Ravi plays: in the field." },
+      { text: "छत ______ ऊपर बच्चा खड़ा है। (The child is standing on top of the roof.)", answers: ["के"], explanation: "'के ऊपर' shows position/place: the child is standing on top of the roof." }
     ];
-
-    // Shuffle questions
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-    const shuffledQuestions = shuffle([...questions]);
 
     // Render options bank
     const optionsBankDiv = document.getElementById("optionsBank");
@@ -135,7 +115,7 @@
 
     // Render questions
     const questionsDiv = document.getElementById("questions");
-    shuffledQuestions.forEach((q, i) => {
+    questions.forEach((q, i) => {
       const div = document.createElement("div");
       div.className = "question";
 
@@ -161,7 +141,7 @@
     // Evaluate answers
     document.getElementById("submitBtn").addEventListener("click", () => {
       let score = 0;
-      shuffledQuestions.forEach((q, i) => {
+      questions.forEach((q, i) => {
         let correct = true;
         q.answers.forEach((ans, idx) => {
           const selected = document.getElementById(`q${i}_${idx}`).value;
@@ -179,7 +159,7 @@
       });
       const resultDiv = document.getElementById("result");
       resultDiv.style.display = "block";
-      resultDiv.innerHTML = `<h3>Your Score: ${score}/${shuffledQuestions.length}</h3>`;
+      resultDiv.innerHTML = `<h3>Your Score: ${score}/${questions.length}</h3>`;
     });
   </script>
 </body>
