@@ -39,10 +39,14 @@
     }
     .question p { margin: 0 0 8px; font-size: 1.1rem; }
     .translation { 
-      color: #555; 
+      display: block !important;   /* force visible */
+      background: #f0f0f0; 
+      color: #222; 
       font-size: 0.9rem; 
       font-style: italic; 
-      margin-bottom: 10px;
+      margin: 5px 0 10px; 
+      padding: 4px 6px;
+      border-left: 3px solid #0a5f4a;
     }
     select {
       padding: 6px;
@@ -96,7 +100,7 @@
     // Master options bank
     const optionsBank = ["से", "ने", "में", "के", "अरे", "के लिए", "को", "पर"];
 
-    // 12 Questions with Hindi + English translation
+    // 12 Questions
     const questions = [
       { hindi: "माँ कुत्ते ______ भोजन देती है।", english: "The mother gives food to the dog.", answers: ["को"], explanation: "'को' marks the recipient of the action: the dog." },
       { hindi: "पेड़ ______ पत्ते गिरते हैं।", english: "Leaves fall from the tree.", answers: ["से"], explanation: "'से' shows origin: from the tree." },
@@ -139,7 +143,7 @@
         }
       });
       html += `</p>`;
-      html += `<div class="translation">(${q.english})</div>`;
+      html += `<span class="translation">${q.english}</span>`;
       html += `<div class="explanation" id="exp${i}"></div>`;
 
       div.innerHTML = html;
@@ -157,4 +161,18 @@
         });
         const expDiv = document.getElementById(`exp${i}`);
         expDiv.style.display = "block";
-        if (correct
+        if (correct) {
+          score++;
+          expDiv.innerHTML = `✔️ Correct Answer: ${q.answers.join(", ")}<br>💡 Explanation: ${q.explanation}`;
+        } else {
+          let chosen = q.answers.map((_, idx) => document.getElementById(`q${i}_${idx}`).value || "None").join(", ");
+          expDiv.innerHTML = `❌ Your Answer: ${chosen}<br>✔️ Correct Answer: ${q.answers.join(", ")}<br>💡 Explanation: ${q.explanation}`;
+        }
+      });
+      const resultDiv = document.getElementById("result");
+      resultDiv.style.display = "block";
+      resultDiv.innerHTML = `<h3>Your Score: ${score}/${questions.length}</h3>`;
+    });
+  </script>
+</body>
+</html>
