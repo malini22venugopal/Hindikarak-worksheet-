@@ -3,32 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>कारक प्रश्नावली (12 Questions)</title>
+  <title>Test English Display</title>
   <style>
     body {
       font-family: "Noto Sans Devanagari", sans-serif;
       background: #f9f7f1;
-      margin: 0;
       padding: 20px;
-    }
-    h1 { text-align: center; color: #0a5f4a; }
-    .options-bank {
-      background: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .options-bank span {
-      display: inline-block;
-      background: #e6f3ef;
-      border: 1px solid #b5ddd2;
-      color: #0a5f4a;
-      padding: 6px 10px;
-      margin: 5px;
-      border-radius: 6px;
-      font-weight: bold;
     }
     .question {
       background: #fff;
@@ -37,142 +17,21 @@
       margin-bottom: 15px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .question p { margin: 0 0 8px; font-size: 1.1rem; }
-    .translation { 
-      display: block !important;   /* force visible */
-      background: #f0f0f0; 
-      color: #222; 
-      font-size: 0.9rem; 
-      font-style: italic; 
-      margin: 5px 0 10px; 
-      padding: 4px 6px;
-      border-left: 3px solid #0a5f4a;
-    }
-    select {
-      padding: 6px;
+    .translation {
+      color: #555;
       font-size: 1rem;
-      margin-right: 8px;
-    }
-    .explanation {
-      margin-top: 10px;
-      padding: 8px;
-      border-radius: 6px;
-      background: #f3fff7;
-      border: 1px dashed #b5ddd2;
-      display: none;
-      font-size: 0.95rem;
-    }
-    #submitBtn {
-      background: #0a5f4a;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-      display: block;
-      margin: 20px auto;
-    }
-    #result {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      background: #f3fff7;
-      border: 1px solid #b5ddd2;
-      display: none;
-      text-align: center;
+      font-style: italic;
+      margin-top: 8px;
     }
   </style>
 </head>
 <body>
-  <h1>कारक प्रश्नावली (12 Questions)</h1>
+  <h1>🚀 Test Page</h1>
 
-  <!-- Word bank -->
-  <div class="options-bank" id="optionsBank"></div>
+  <div class="question">
+    <p><strong>Q1.</strong> माँ कुत्ते ______ भोजन देती है।</p>
+    <div class="translation">(The mother gives food to the dog.)</div>
+  </div>
 
-  <!-- Questions -->
-  <div id="questions"></div>
-
-  <button id="submitBtn">Submit</button>
-  <div id="result"></div>
-
-  <script>
-    // Master options bank
-    const optionsBank = ["से", "ने", "में", "के", "अरे", "के लिए", "को", "पर"];
-
-    // 12 Questions
-    const questions = [
-      { hindi: "माँ कुत्ते ______ भोजन देती है।", english: "The mother gives food to the dog.", answers: ["को"], explanation: "'को' marks the recipient of the action: the dog." },
-      { hindi: "पेड़ ______ पत्ते गिरते हैं।", english: "Leaves fall from the tree.", answers: ["से"], explanation: "'से' shows origin: from the tree." },
-      { hindi: "सूर्य दिन ______ निकलता है।", english: "The sun rises in the day.", answers: ["में"], explanation: "'में' shows time: in the day." },
-      { hindi: "बिल ______ साँप निकलता है।", english: "A snake comes out of the hole.", answers: ["से"], explanation: "'से' indicates source: from the hole." },
-      { hindi: "दादाजी आमिर ______ पतंग लाते हैं।", english: "Grandfather brings a kite for Amir.", answers: ["के लिए"], explanation: "'के लिए' shows beneficiary: for Amir." },
-      { hindi: "रानी ______ हाथ ______ किताब गिराती है।", english: "The book falls from Rani's hand.", answers: ["के", "से"], explanation: "'के हाथ से' = from the hand of Rani." },
-      { hindi: "पंकज अपने भाई ______ मिठाई लाता है।", english: "Pankaj brings sweets for his brother.", answers: ["के लिए"], explanation: "'के लिए' = for someone: for his brother." },
-      { hindi: "मनोेज कलम ______ लिखता है।", english: "Manoj writes with a pen.", answers: ["से"], explanation: "'से' marks the instrument: with a pen." },
-      { hindi: "______! तुम कब आते हो।", english: "Hey! When do you come?", answers: ["अरे"], explanation: "'अरे' is an interjection: Hey!" },
-      { hindi: "रवि ______ क्रिकेट मैच देखता है।", english: "Ravi watches the cricket match.", answers: ["ने"], explanation: "'ने' marks the subject/agent: Ravi." },
-      { hindi: "लड़का गुरुजी ______ पढ़ाई करता है।", english: "The boy studies from the teacher.", answers: ["से"], explanation: "'से' indicates source: from the teacher." },
-      { hindi: "वह शाम ______ घर आता है।", english: "He comes home in the evening.", answers: ["को"], explanation: "'को' marks time expressions like 'शाम को' = in the evening." }
-    ];
-
-    // Render options bank
-    const optionsBankDiv = document.getElementById("optionsBank");
-    optionsBank.forEach(opt => {
-      const span = document.createElement("span");
-      span.textContent = opt;
-      optionsBankDiv.appendChild(span);
-    });
-
-    // Render questions
-    const questionsDiv = document.getElementById("questions");
-    questions.forEach((q, i) => {
-      const div = document.createElement("div");
-      div.className = "question";
-
-      // Split Hindi text into blanks
-      let parts = q.hindi.split("______");
-      let html = `<p><strong>Q${i + 1}.</strong> `;
-      parts.forEach((part, idx) => {
-        html += part;
-        if (idx < q.answers.length) {
-          html += `<select id="q${i}_${idx}">
-                     <option value="">-- Select --</option>
-                     ${optionsBank.map(opt => `<option value="${opt}">${opt}</option>`).join("")}
-                   </select>`;
-        }
-      });
-      html += `</p>`;
-      html += `<span class="translation">${q.english}</span>`;
-      html += `<div class="explanation" id="exp${i}"></div>`;
-
-      div.innerHTML = html;
-      questionsDiv.appendChild(div);
-    });
-
-    // Evaluate answers
-    document.getElementById("submitBtn").addEventListener("click", () => {
-      let score = 0;
-      questions.forEach((q, i) => {
-        let correct = true;
-        q.answers.forEach((ans, idx) => {
-          const selected = document.getElementById(`q${i}_${idx}`).value;
-          if (selected !== ans) correct = false;
-        });
-        const expDiv = document.getElementById(`exp${i}`);
-        expDiv.style.display = "block";
-        if (correct) {
-          score++;
-          expDiv.innerHTML = `✔️ Correct Answer: ${q.answers.join(", ")}<br>💡 Explanation: ${q.explanation}`;
-        } else {
-          let chosen = q.answers.map((_, idx) => document.getElementById(`q${i}_${idx}`).value || "None").join(", ");
-          expDiv.innerHTML = `❌ Your Answer: ${chosen}<br>✔️ Correct Answer: ${q.answers.join(", ")}<br>💡 Explanation: ${q.explanation}`;
-        }
-      });
-      const resultDiv = document.getElementById("result");
-      resultDiv.style.display = "block";
-      resultDiv.innerHTML = `<h3>Your Score: ${score}/${questions.length}</h3>`;
-    });
-  </script>
 </body>
 </html>
